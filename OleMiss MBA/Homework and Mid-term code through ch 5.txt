@@ -1,0 +1,669 @@
+#1.1 This question uses the CASchools data set in the AER package. 
+#The data set contains information from a sample of 420 school districts in California. 
+#One of the variables in the data set is students (total enrollment in each district). Find the sample standard deviation for students.
+library (AER)
+summary (CASchools)
+data("CASchools", package = "AER")
+summary(CASchools)
+sd(CASchools$students)
+#1.2 In a statistics class, 10 test scores were randomly selected, and the following results were obtained: 74, 73, 77, 77, 71, 68, 65, 77, 67, and 66. 
+#What is the sample standard deviation?
+x = c(74, 73, 77, 77, 71, 68, 65, 77, 67, 66)
+sd(x)
+#1.3 This question uses the marketing data set from the datarium package. 
+#One of the variables in the data set is sales (number of units sold). Find the sample standard deviation for sales.
+library(datarium)
+data("marketing", package = "datarium")
+sd(marketing$sales)
+#1.4 The mtcars data set is in the datasets package. Which of the following is not one of the variables in the data set?
+summary(mtcars)
+?mtcars
+#1.5 The BSDA package in R contains a data set named Epatwoseater. The data set has a variable named cty (that’s city mpg). 
+#What is the sample mean cty?
+library(BSDA)
+data("Epatwoseater", package = "BSDA")
+mean(Epatwoseater$cty)
+#1.6 The following sample values are snow depths measured as part of a study of 
+#satellite observations and water resources: 19, 18, 15, 25, 22, 18, 8, and 16.  
+#What is the sample mean?
+x = c(19, 18, 15, 25, 22, 18, 8, 16)
+mean(x)
+#1.7 The BSDA package contains a data set named Detroit. 
+#This data set has a variable named educ (educational levels of a sample of 40 auto workers in Detroit). 
+#Find the sample mean of this variable.
+library(BSDA)
+data("Detroit", package = "BSDA")
+mean(Detroit$educ)
+#1.8 This question uses the HousePrices data set in the AER package. 
+#The data set contains sales prices of a sample of 546 houses sold in the city of Windsor, Canada in 1987. 
+#One of the variables in the data set is price. What was the sample mean price?
+library(AER)
+data("HousePrices", package = "AER")
+mean(HousePrices$price)
+#1.9 The BSDA package in R contains a data set named Anesthet. 
+#The data set has 10 observations on one variable named recover, which is the recovery time for anesthetized patients. 
+#The variable measures the recovery time in hours. 
+#The sample mean of recover is _____, and the sample standard deviation of recover is _____.
+library(BSDA)
+data("Anesthet", package = "BSDA")
+mean(Anesthet$recover)
+sd(Anesthet$recover)
+#1.10 The BSDA package in R contains a data set named Alcohol. The data set has one variable. What is the name of the variable?
+library(BSDA)
+data(Alcohol, package = "BSDA")
+head(Alcohol)
+summary(Alcohol)
+#2.1 A simple regression analysis is conducted with 40 observations. 
+#The total sum of squares (SST) equals 500, and the error sum of squares (SSE) equals 100. Find the adjusted r-square.
+SST = 500
+SSE = 100
+SSR = SST-SSE
+(r.sq = SSR/SST)
+#2.2 This question uses the Boston data set in the ISRL2 package. 
+#The data set contains housing values in 506 suburbs of Boston (data is from the 1970’s). 
+#The dependent variable is medv (median value of owner-occupied homes in thousands of dollars). 
+#The independent variable is ptratio (pupil-teacher ratio in the suburb). 
+#Find the 95 percent confidence interval for the average medv when the ptratio equals 16.
+library(ISLR2)
+data(Boston, package = "ISLR2")
+summary(Boston)
+x = Boston$ptratio
+y = Boston$medv
+model = lm(y~x)
+new.data = data.frame(x = 16)
+predict(model, new.data, interval = "confidence", level = 0.95 )
+#2.3 	A simple regression analysis with n equals 20 was conducted. 
+#Find the critical value for an F test for the simple linear regression model at the 0.05 level of significance.	
+qf(0.95, df1 = 1, df2 = 18, lower.tail = TRUE)
+#2.4 In a simple regression analysis (with n equals 10), the explained variation equals 151.21 and the unexplained variation equals 81.62. 
+#Find the coefficient of determination.
+SSR = 151.21
+SSE = 81.62
+(SST = SSR + SSE)
+(r.sq = SSR/SST)
+#2.5 The following results were obtained from a simple regression analysis. 
+#The intercept equals 0.44. The slope equals 0.21. The coefficient of determination equals 0.67; 
+#the residual standard error equals 0.29, and n (the number of observations) equals 19. 
+#What proportion of the total variation in the n observed values of y is explained by the simple linear regression model?
+0.67
+#2.6 A simple regression analysis with n equals 35 was conducted. 
+#Find the critical value for a t-test of the slope at the 0.01 level of significance. 
+#The alternative hypothesis is beta-1 is not equal to zero, where beta-1 is the population slope.
+qt(0.995, df = 33)
+#2.7 	A simple regression analysis with n equals 50 was conducted. 
+#Find the critical value for a t-test of the slope at the 0.05 level of significance. 
+#The alternative hypothesis is beta-1 is not equal to zero, where beta-1 is the population slope.	
+qt(0.975, df = 48)
+qt(0.975, df = 48, lower.tail = FALSE)
+#2.8 Perform a simple regression analysis on the following data. What is the slope of the regression model?
+x = c(1, 1, 2, 2, 4, 5, 5, 6)
+y = c(1, 2, 1, 3, 4, 6, 5, 7)
+model = lm(y ~ x)
+summary(model)
+#2.9 This question uses the houseprices data set from the DAAG package. 
+#The dependent variable is sale.price (in thousands of dollars) and the independent variable is bedrooms (the number of bedrooms). 
+#Find the 90 percent prediction interval for an individual house with 4 bedrooms.
+library(DAAG)
+data(houseprices, package = "DAAG")
+model = lm(sale.price ~ bedrooms, data = houseprices)
+new.data = data.frame(bedrooms = 4)
+predict(model, new.data, interval = "prediction", level = 0.90)
+#2.10 	This question uses the CASchools data set in the AER package. 
+#The dependent variable is read (average reading score) and the independent variable is income (district average income in thousands of dollars). 
+#Find the error sum of squares (SSE).			
+library (AER)
+data( CASchools, package = "AER")
+summary(CASchools)
+model = lm(read ~ income, data = CASchools)
+summary(model)
+sum(residuals(model)^2)
+anova(model)
+SSE = sum(residuals(model)^2)
+SSE
+SST = sum(anova(model)$"Sum Sq")
+SST
+#3.1 This question uses the tips data set from the reshape2 package. 
+#The data set contains information recorded by one waiter about each tip he received over a period of a few months working in one restaurant. 
+#The dependent variable is tip (the tip in dollars). The independent variable is total_bill (the bill in dollars). 
+#Use the olsrr package to find the predicted r square.
+library(reshape2)
+data(tips, package = "reshape2")
+summary(tips)
+model = lm(tip ~ total_bill, data = tips)
+library(olsrr)
+ols_pred_rsq(model)
+#3.2 The data set named “coleman” is in the “robustbase” package. 
+#Install and load the package and load the data. The data set contains information on 20 schools. 
+#The dependent variable is the salaryP (staff salaries per pupil). 
+#There are 5 independent variables. Perform a multiple regression analysis using all the independent variables. 
+#What is the regression slope coefficient for the independent variable named, “teacherSc”? This is the mean teachers verbal test score.
+library(robustbase)
+data(coleman, package = "robustbase")
+model = lm(salaryP ~., data = coleman)
+summary(model)
+#3.3 The data set named “coleman” is in the “robustbase” package. The data set contains information on 20 schools. 
+#The dependent variable is the mean score on a verbal test (teacherSc). There are 5 independent variables. 
+#Two of the independent variables are fatherWc (percent of white collar fathers) and sstatus (family socioeconomic status). 
+#Create an interaction variable between fathcrWc and sstatus. 
+#Perform a regression analysis using all 5 original independent variables and the new interaction variable. 
+#What is the p-value for the interaction variable?
+library(robustbase)
+library(tidyverse)
+data(coleman, package = "robustbase")
+sample_n(coleman, 10)
+model = lm(teacherSc ~ salaryP + fatherWc + sstatus + motherLev + Y + fatherWc:sstatus, data = coleman)
+summary(model)
+#3.4 This question uses the car package and the Salaries data set in the carData package. 
+#Use salary as the dependent variable, and use all available independent variables. 
+#Find an 80 percent confidence interval for the average salary when rank equals AsstProf, 
+#discipline equals B, yrs.since.phd equals 32, yrs.service equals 27, and sex equals Female.
+library(car)
+library(carData)
+data(Salaries, package = "carData")
+summary(Salaries)
+model = lm(salary ~., data = Salaries)
+newdata = data.frame(rank="AsstProf", discipline="B", yrs.since.phd=32, yrs.service=27, sex="Female")
+predict(model, newdata, interval = "confidence", level = 0.80)
+#3.5 The data set named “delivery” is in the “robustbase” package. Install and load the package, and load the data. 
+#The data set contains information on the time required to service a vending machine 
+#(the dependent variable) and two independent variables (the number of products stocked and the distance walked by the route driver). 
+#Perform a multiple regression analysis. Find the SSR (the variation that is explained by the model).
+library(robustbase)
+data(delivery, package = "robustbase")
+summary(delivery)
+model = lm(delTime ~., data = delivery)
+summary(model)
+anova(model)
+SST = sum(anova(model)$"Sum Sq")
+SST
+SSE = sum(residuals(model)^2)
+SSE
+SST-SSE
+#3.6 	The trees data set in the datasets package contains information on the diameter, height, and volume for black cherry trees. 
+#The dependent variable is Volume (numeric volume of timber in cubic feet). 
+#The independent variables are Girth (numeric tree diameter in inches) and Height (numeric height in feet). 
+#Perform a regression analysis. What is the Multiple R-squared?			
+library(datasets)
+data(trees, package = "datasets")
+model = lm(Volume ~., data = trees)
+summary(model)
+#3.7 This question uses the Wage data set in the ISLR2 package. The dependent variable is wage (in thousands of dollars). 
+#Use age (in years), and education (a factor with five levels) as independent variables. 
+#Perform a regression analysis using the caret package with 10-fold cross validation to find the cross-validated R-square. Use set.seed(123). 
+library(ISLR2)
+data(Wage, package = "ISLR2")
+summary(Wage)
+library(caret)
+set.seed(123)
+train.control = trainControl(method = "cv", number = 10)
+model = train(wage ~ age + education,
+              method = "lm",
+              data = Wage,
+              trControl = train.control)
+print(model)
+#3.8 “HousePrices” is a data set in the “AER” package. Install and load the package and load the data. 
+#The data set has sales prices of houses sold in the city of Windsor, Canada, during July, August, and September, 1987. 
+#The dependent variable is price, and there 11 independent variables. Conduct a multiple regression analysis using all 11 independent variables. 
+#What is the adjusted R-squared?
+library(AER)
+data(HousePrices, package= "AER")
+summary(HousePrices)
+model = lm(price ~., data = HousePrices)
+summary(model)
+library(olsrr)
+ols_pred_rsq(model)
+#3.9 This question uses the Auto data set that is in the ISLR package in R. 
+#Use mpg as the dependent variable. Use displacement, horsepower, and weight as independent variables. 
+#Perform cross validation using the validation set approach and the caret package. 
+#Use set.seed(123), and place 75 percent of the data in the training set and 25 percent of the data in the testing set. 
+#Find the cross-validated R-Squared.
+library(ISLR)
+library(caret)
+data(Auto, package = "ISLR")
+summary(Auto)
+library(olsrr)
+model = lm(mpg ~ displacement + horsepower + weight, data = Auto)
+ols_pred_rsq(model)
+set.seed(123)
+training.index = createDataPartition(Auto$mpg, p = 0.75, list = FALSE)
+training.data = Auto[ training.index, ]
+testing.data  = Auto[-training.index, ]
+model = lm(mpg ~ displacement + horsepower + weight, data = training.data)
+predictions = predict(model, testing.data)
+actual = testing.data$mpg
+data.frame(R2 = R2(actual, predictions),
+           RMSE = RMSE(actual, predictions),
+           MAE = MAE(actual, predictions))
+#3.10 This question uses the HousesNY data set in the Stat2Data package. The dependent variable is Price (in thousands of dollars). 
+#Use all available independent variables. They are Beds (number of bedrooms), Baths (number of bathrooms), 
+#Size (floor area in thousands of square feet), and Lot (size of the lot in acres). 
+#Use the ols_step_both_aic() function in the olsrr package to find the optimum model. What is the AIC for this model?
+library(Stat2Data)
+library(olsrr)
+data(HousesNY, package = "Stat2Data")
+model = lm(Price ~., data = HousesNY)
+summary(HousesNY)
+ols_step_both_aic(model)
+#4.1 Use the Sacramento data set in the caret package. 
+#Perform a second degree polynomial regression using price as the dependent variable and beds as 
+#the independent variable with LOOCV cross validation from the caret package. 
+#Use the caret package to find the R-Squared for the model. What is the cross validated R-Squared?
+library(caret)
+set.seed(123)
+train.control = trainControl(method = "LOOCV")
+mod = train(price ~ poly(beds, degree = 2), data = Sacramento, method = "lm",
+            trControl = train.control)
+print(mod)
+#4.2 Use the MurderRates data set in the AER package. Perform a third degree polynomial regression analysis 
+#with rate as the dependent variable and convictions as the independent variable. 
+#What is the p-value of the F-statistic? This question does not ask you to use the caret package.
+library(AER)
+data(MurderRates, package = "AER")
+summary(MurderRates)
+mod.3 = lm(rate ~poly(convictions, degree = 3), data = MurderRates)
+summary(mod.3)
+#4.3 This question uses the mtcars data set. Use mpg (miles per gallon) as the dependent variable and hp (horsepower) as the independent variable. 
+#Perform a second degree polynomial regression. If hp equals 100, what is the 95 percent prediction interval for mpg for an individual automobile? 
+#This question does not ask you to use the caret package.
+mod.2 = lm(mpg ~poly(hp, degree = 2), data = mtcars)
+newdata = data.frame(hp = 100)
+predict(mod.2, newdata, interval = "confidence", level = 0.95)
+#4.4 This question uses the Boston data set from the ISLR2 package. 
+#Use medv (median value of owner-occupied homes in thousands of dollars) as the dependent variable 
+#and use crim (per capita crime rate) as the independent variable. Perform natural spline regression with 4 degrees of freedom. 
+#Use set.seed(123) and 10-fold cross validation with the caret package to find the RMSE.
+library(ISLR2)
+data(Boston, package = "ISLR2")
+summary(Boston)
+library(caret)
+library(splines)
+set.seed(123)
+train.control = trainControl(method = "cv", number = 10)
+model = train(medv ~ ns(crim, df = 4),
+              method = "lm",
+              data = Boston,
+              trControl = train.control)
+print(model)
+#4.5 Use the HousePrices data set in the AER package. 
+#Perform a second degree polynomial regression analysis using price as the dependent variable and bedrooms (and bedrooms squared) as the independent variable. 
+#What is the adjusted R-Squared? This question does not ask you to use the caret package.
+library(AER)
+data(HousePrices, package = "AER")
+summary(HousePrices)
+mod.2 = lm(price ~poly(bedrooms, degree = 2), data = HousePrices)
+summary(mod.2)
+#4.6 Use the marketing data set in the datarium package. Use sales as the dependent variable and facebook as the independent variable. 
+#Perform a fifth degree polynomial regression. Use the caret package with LOOCV. What is the cross validated R-Squared?
+library(datarium)
+library(caret)
+set.seed(123)
+train.control = trainControl(method = "LOOCV")
+mod = train(sales ~ poly(facebook, degree = 5), data = marketing, method = "lm",
+            trControl = train.control)
+print(mod)
+#4.7 Use the HousePrices data set in the AER package. 
+#Perform a third degree polynomial regression using price as the dependent variable and bedrooms as the independent variable. 
+#What is the 95 percent confidence interval for the price of the average home with three bedrooms? 
+#This question does not ask you to use the caret package.
+library(AER)
+data(HousePrices, package = "AER")
+summary(HousePrices)
+mod.3 = lm(price ~poly(bedrooms, degree = 3), data = HousePrices)
+newdata = data.frame(bedrooms = 3)
+predict(mod.3, newdata, interval = "confidence", level = 0.95)
+#4.8 This question uses the Boston data set in the MASS package. The data set contains housing values in suburbs of Boston. 
+#The dependent variable is medv (the median value of owner-occupied homes in thousands of dollars). 
+#The independent variable is crim (per capita crime rate per town). Use the caret package for leave one out cross validation (LOOCV). 
+#Perform a regression analysis using a second degree polynomial model. What is the cross validated MAE (mean absolute error)?
+library(MASS)
+library(caret)
+data(Boston, package = "MASS")
+summary(Boston)
+set.seed(123)
+train.control = trainControl(method = "LOOCV")
+mod.2 = train(medv ~ poly(crim, degree = 2), data = Boston, method = "lm",
+              trControl = train.control)
+print(mod.2)
+#4.9 Use the marketing data set in the datarium package. 
+#Use a regression model with two second degree polynomial terms, one for youtube and the second for facebook. 
+#Find the 90% confidence interval for the average sales when youtube equals 100 and facebook equals 50. 
+#This question does not ask you to use the caret package.
+library(datarium)
+data(marketing, package = "datarium")
+mod.2 = lm(sales ~ poly(youtube, degree = 2) + poly(facebook, degree = 2), data = marketing)
+newdata = data.frame(youtube = 100, facebook = 50)
+predict(mod.2, newdata, interval = "confidence", level = 0.90)
+#4.10 This question uses the tips data set from the reshape2 package. The dependent variable is tip, and the independent variable is total_bill. 
+#Perform natural spline regression (using the splines package) to build a regression model. Use 4 degrees of freedom. 
+#Find the 90 percent confidence interval for the average tip when the total_bill is $25.00. 
+library(reshape2)
+library(splines)
+data(tips, package = "reshape2")
+summary(tips)
+model = lm(tip ~ ns(total_bill, df = 4), data = tips)
+newdata = data.frame(total_bill = 25)
+predict(model, newdata, interval = "confidence", level = 0.90)
+#M.1 This question uses the MurderRates data set in the AER package. This is data from 1950. 
+#The dependent variable is rate (murder rate per 100,000). 
+#The independent variables are income  (median family income in 1949 in U.S. dollars), lfp (labor force participation rate in percent), 
+#and the interaction between income and lfp. Find the 80 percent confidence interval for MurderRates when income equals 1.8 and lfp equals 53.
+library(AER)
+library(tidyverse)
+data(MurderRates, package = "AER")
+sample_n(MurderRates, 10)
+model = lm(rate ~ income + lfp + income:lfp, data = MurderRates)
+summary(model)
+newdata = data.frame(income = 1.8, lfp = 53)
+predict(model, newdata, interval = "confidence", level = 0.80)
+#M.2 This question uses the cars data set from the caret package. 
+#The dependent variable is Price and the independent variables are Mileage, Cylinder, Cruise, and Leather. 
+#Perform a multiple regression analysis, and find the predicted Price when Mileage equals 20000, Cylinder equals 4, Cruise equals 1, and Leather equals 1.
+library(caret)
+data(cars, package = "caret")
+summary(cars)
+model = lm(Price ~ Mileage + Cylinder + Cruise + Leather, data = cars)
+summary(model)
+newdata = data.frame(Mileage = 20000, Cylinder = 4, Cruise = 1, Leather = 1)
+predict(model, newdata)
+#M.3 What is a 95 percent confidence interval for the population mean when the sample size equals 10, the sample mean equals 35.6, 
+#and the sample standard deviation equals 13.0? Assume the population is normally distributed.
+confidence_interval <- 0.95
+lower_bound <- 35.6 - qt(1 - (1 - confidence_interval) / 2, df = 10 - 1) * (13.0 / sqrt(10))
+upper_bound <- 35.6 + qt(1 - (1 - confidence_interval) / 2, df = 10 - 1) * (13.0 / sqrt(10))
+
+# Display the results
+cat("95% Confidence Interval: [", lower_bound, ", ", upper_bound, "]\n")
+#M.4 We have a sample of 10 observations from a normal distribution. Find the 99% confidence interval for the population mean. 
+#The sample mean equals 20, and the sample standard deviation equals 6.
+confidence_interval <- 0.99
+lower_bound <- 20 - qt(1 - (1 - confidence_interval) / 2, df = 10 - 1) * (6 / sqrt(10))
+upper_bound <- 20 + qt(1 - (1 - confidence_interval) / 2, df = 10 - 1) * (6 / sqrt(10))
+cat("99% Confidence Interval: [", lower_bound, ", ", upper_bound, "]\n")
+#M.5 Suppose that the random variable x is normally distributed with a population mean of 500 and a population standard deviation of 190.  
+#If one value of x is randomly selected from this population, find the probability that x would be between 650 and 750.
+prob = pnorm(750, mean = 500, sd = 190) - pnorm(650, mean = 500, sd = 190)
+prob
+#M.6 The BSDA package in R contains a data set named Artifici. 
+#The data set contains the duration of operations (in hours) for 15 artificial heart transplants. 
+#The format is a data frame/tibble with 15 observations on one variable named duration. 
+#The sample mean of duration is _____, and the sample standard deviation of duration is _____.
+library(BSDA)
+data(Artifici, package = "BSDA")
+head(Artifici)
+mean(Artifici$duration)
+sd(Artifici$duration)
+#M.7 We have a sample of 10 observations from a normal distribution. Find the 95% confidence interval for the population mean. 
+#The sample mean equals 20, and the sample standard deviation equals 4.
+confidence_interval <- 0.95
+lower_bound <- 20 - qt(1 - (1 - confidence_interval) / 2, df = 10 - 1) * (4 / sqrt(10))
+upper_bound <- 20 + qt(1 - (1 - confidence_interval) / 2, df = 10 - 1) * (4 / sqrt(10))
+cat("95% Confidence Interval: [", lower_bound, ", ", upper_bound, "]\n")
+#M.8 The datasets package in R contains a data set named iris. One of the variabels in the data set is named Petal.Width. 
+#Find the 90% confidence interval for the population mean Petal.Width.
+library(datasets)
+data(iris, package = "datasets")
+sample_mean = mean(iris$Petal.Width)
+sample_sd = sd(iris$Petal.Width)
+conf_level = 0.90
+n = length(iris$Petal.Width)
+df = n-1
+df
+t_critical <- qt((1 + conf_level) / 2, df)
+margin_of_error <- t_critical * (sample_sd / sqrt(n))
+lower_bound <- sample_mean - margin_of_error
+upper_bound <- sample_mean + margin_of_error
+cat("90% Confidence Interval for Petal.Width: [", lower_bound, ", ", upper_bound, "]\n")
+conf_interval <- t.test(iris$Petal.Width, conf.level = 0.90)$conf.int
+print(conf_interval)
+#M.9 A multiple regression analysis is conducted with 45 observations and five independent variables.  
+#The explained sum of squares equals 80 and total sum of squares equals 100.  Find the adjusted multiple R-squared.
+SSE = 80
+SST = 100
+n = 45
+p = 5
+R_square = SSE/SST
+R_square
+Adjusted_R_square <- 1 - ((1 - R_square) * (n - 1) / (n - p - 1))
+Adjusted_R_square
+#M.10 This question uses the HousePrices data set in the AER package. 
+#Perform a multiple regression analysis with price as the dependent variable and lotsize, bedrooms, and bathrooms as independent variables. 
+#Find the 80 percent prediction interval for an individual house price when lotsize equals 4000, bedrooms equals 3, and bathrooms equals 2.
+library(AER)
+data(HousePrices, package= "AER")
+model = lm(price ~ lotsize + bedrooms + bathrooms, data = HousePrices)
+newdata = data.frame(lotsize = 4000, bedrooms = 3, bathrooms = 2)
+predict(model, newdata, interval = "prediction", level = 0.80)
+#M.11 A random sample of 100 observations had a sample mean of 5.46 and a sample standard deviation of 2.475.  
+#Find an 95 percent confidence interval for the population mean.
+confidence_interval <- 0.95
+lower_bound <- 5.46 - qt(1 - (1 - confidence_interval) / 2, df = 100 - 1) * (2.475 / sqrt(100))
+upper_bound <- 5.46 + qt(1 - (1 - confidence_interval) / 2, df = 100 - 1) * (2.475 / sqrt(100))
+cat("95% Confidence Interval: [", lower_bound, ", ", upper_bound, "]\n")
+sample_mean <- 5.46       # Sample mean
+sample_sd <- 2.475        # Sample standard deviation
+n <- 100                  # Sample size
+confidence_level <- 0.95  # Confidence level
+# Critical z-value for 95% confidence level
+z_critical <- qnorm((1 + confidence_level) / 2)
+# Margin of error
+margin_of_error <- z_critical * (sample_sd / sqrt(n))
+# Confidence interval
+lower_bound <- sample_mean - margin_of_error
+upper_bound <- sample_mean + margin_of_error
+# Display the results
+cat("95% Confidence Interval: [", lower_bound, ", ", upper_bound, "]\n")
+#M.12 What is a 90 percent confidence interval for the population mean when the sample size equals 20, 
+#the sample mean equals 35.6, and the sample standard deviation equals 13.3?
+confidence_interval <- 0.90
+lower_bound <- 35.6 - qt(1 - (1 - confidence_interval) / 2, df = 20 - 1) * (13.3 / sqrt(20))
+upper_bound <- 35.6 + qt(1 - (1 - confidence_interval) / 2, df = 20 - 1) * (13.3 / sqrt(20))
+cat("90% Confidence Interval: [", lower_bound, ", ", upper_bound, "]\n")
+#M.13 Save the Coffee data set from the class Blackboard site to your computer. Import the data set into RStudio. 
+#This data set has one variable. Find the 99% confidence interval for the population mean.
+coffee_data <- read.csv("C:/R Data/Coffee.csv")
+coffee_variable <- coffee_data[[1]]
+sample_mean <- mean(coffee_variable)
+sample_sd <- sd(coffee_variable)
+n <- length(coffee_variable)
+df <- n - 1
+confidence_level <- 0.99
+t_critical <- qt((1 + confidence_level) / 2, df)
+margin_of_error <- t_critical * (sample_sd / sqrt(n))
+lower_bound <- sample_mean - margin_of_error
+upper_bound <- sample_mean + margin_of_error
+cat("99% Confidence Interval for the population mean: [", lower_bound, ", ", upper_bound, "]\n")
+#M.14 If the random variable z has a standard normal distribution, what is the probability 
+#that a randomly selected observation from this distribution will be between -1 and -2.
+pnorm(q = -1) - pnorm (q =-2, lower.tail = FALSE)
+probability <- pnorm(-1) - pnorm(-2)
+cat("The probability that z is between -2 and -1 is:", probability, "\n")
+#M.15 Suppose that for a sample of 11 measurments, we find that the sample mean equals 72 and the sample standard deviation equals 5. 
+#Assuming normality, compute the 95% confidence intervals for the population mean.
+confidence_interval <- 0.95
+lower_bound <- 72 - qt(1 - (1 - confidence_interval) / 2, df = 11 - 1) * (5 / sqrt(11))
+upper_bound <- 72 + qt(1 - (1 - confidence_interval) / 2, df = 11 - 1) * (5 / sqrt(11))
+lower_bound
+upper_bound
+#M.16 Use y as the dependent variable. Use x1 and x2 as independent variables. Perform a multiple regression analysis with x1, x2, 
+#and the interaction between x1 and x2. What is the two-tailed p-value for interaction?
+y =  c(20, 12, 14, 16, 18, 20, 22, 30)
+x1 = c(30, 12, 15, 14, 22, 23, 20, 24)
+x2 = c(30, 25, 44, 24, 20, 15, 18, 20)
+model = lm(y ~ x1 + x2 + x1:x2)
+summary(model)
+#M.17 Use the car package and the Salaries data set in the carData package. The dependent variable is salary. 
+#Use all available independent variables. 
+#Find the 90 percent confidence interval of the average salary for somone when rank equals Prof, discipline equals A, 
+#yrs.since.phd equals 30, yrs.service equals 30, and sex equals Female.
+library(car)
+library(carData)
+data(Salaries, package = "carData")
+summary(Salaries)
+model = lm(salary ~., data = Salaries)
+newdata = data.frame(rank="Prof", discipline="A", yrs.since.phd=30, yrs.service=30, sex="Female")
+predict(model, newdata, interval = "confidence", level = 0.90)
+#M.18 This question uses the Epatwoseater data set in the BSDA package. The dependent variable is cmb and the independent variables are displ and cyl. 
+#Find the slope of the regression coefficient for cyl.
+library(BSDA)
+data("Epatwoseater", package = "BSDA")
+summary(Epatwoseater)
+model = lm(cmb ~ displ + cyl, data = Epatwoseater)
+summary(model)
+#M.19 The following sample values are snow depths (in inches) measured as part of a study of satellite observations 
+#and water resources: 19, 18, 12, 15, 22, 8, 8, and 12.  What is the sample standard deviation?
+sample = c(19, 18, 12, 15, 22, 8, 8, 12)
+sd(sample)
+#M.20 This question uses the MurderRates data set in the AER package. This is data from 1950. 
+#The dependent variable is rate (murder rate per 100,000). 
+#The independent variables are income  (median family income in 1949 in U.S. dollars), 
+#lfp (labor force participation rate in percent), 
+#and the interaction between income and lfp. Find the 80 percent confidence interval for MurderRates when income equals 1.8 and lfp equals 53.
+library(AER)
+library(tidyverse)
+data(MurderRates, package = "AER")
+sample_n(MurderRates, 10)
+model = lm(rate ~ income + lfp + income:lfp, data = MurderRates)
+summary(model)
+newdata = data.frame(income = 1.8, lfp = 53)
+predict(model, newdata, interval = "confidence", level = 0.80)
+#5.1 This question uses the Auto data set in the ISLR package. Use mpg as the dependent variable. 
+#Use all independent variables except name. Use the caret package for  PLS regression with 10-fold cross validation. 
+#Preprocess with center and scale, and use a tuneLength of 20. What is the RMSE of the optimal model? Use set.seed(777).
+library(caret)
+library(ISLR)
+library(pls)
+data(Auto, package = "ISLR")
+summary(Auto)
+set.seed(777)
+train.control = trainControl(method = "cv", number = 10)
+pls_model = train(mpg ~ cylinders + displacement + horsepower + weight + acceleration + year + origin, data = Auto, 
+                  method = "pls",
+                  trControl = train.control,
+                  preProcess= c("center", "scale"),
+                  tuneLength = 20)
+print(pls_model)
+#5.2 Use the marketing data set in the datarium package. 
+#Use the caret package to Perform PLS regression with sales as the dependent variable and all available independent variables. 
+#Use set.seed(111) and 10-fold cross validation. Preprocess with center and scale, and use tuneLength of 20. 
+#Find the cross validated Rsquared for the optimal model.
+library(caret)
+library(datarium)
+library(pls)
+data(marketing, package = "datarium")
+summary(marketing)
+set.seed(111)
+train.control = trainControl(method = "cv", number = 10)
+pls_model = train(sales ~., data = marketing, 
+                  method = "pls",
+                  trControl = train.control,
+                  preProcess= c("center", "scale"),
+                  tuneLength = 20)
+print(pls_model)
+#5.3 Use the Auto data set in the ISLR package. Use the caret package to Perform PLS regression with mpg as the dependent variable; 
+#use all available independent variables except origin and name. Use set.seed(222) and 10-fold cross validation. Preprocess with center and scale. 
+#Use tuneLength equals 20. What is the RMSE for the optimal model?
+library(caret)
+library(ISLR)
+library(pls)
+data(Auto, package = "ISLR")
+summary(Auto)
+set.seed(222)
+train.control = trainControl(method = "cv", number = 10)
+pls_model = train(mpg ~ cylinders + displacement + horsepower + weight + acceleration + year, data = Auto, 
+                  method = "pls",
+                  trControl = train.control,
+                  preProcess= c("center", "scale"),
+                  tuneLength = 20)
+print(pls_model)
+#5.4 Use the HousePrices data set in the AER package. The dependent variable is aircon. 
+#(Is there central air conditioning? This is a factor with two levels: no or yes). 
+#The independent variable is price (sales price of a house in dollars). 
+#Use the caret package to conduct a logistic regression analysis with LOOCV, and find the cross validated accuracy.
+library(AER)
+library(caret)
+data(HousePrices, package = "AER")
+summary(HousePrices)
+HousePrices$aircon <- as.factor(HousePrices$aircon)
+set.seed(123)
+train.control = trainControl(method = "LOOCV")
+log_model = train(aircon ~ price, data = HousePrices, 
+                  method = "glm",
+                  family = "binomial", 
+                  trControl = train.control)
+print(log_model)
+cv_accuracy <- max(log_model$results$Accuracy)
+cv_accuracy  
+#5.5 This question uses the College data set from the ISLR2 package. The dependent variable is Private; 
+#it is a factor with two levels No and Yes indicating private or public university. 
+#The independent variable is perc.alumni, the percent of alumni who donate to the school. 
+#Use the caret package to conduct a logistic regression analysis. What is the coefficient for perc.alumni?
+library(ISLR2)
+library(caret)
+data(College, package = "ISLR2")
+summary(College)
+College$Private <- as.factor(College$Private)
+set.seed(123)
+log_model <- train(
+  Private ~ perc.alumni, 
+  data = College, 
+  method = "glm",
+  family = binomial)
+summary(log_model$finalModel)
+#5.6 Use the HousePrices data set in the AER package. The dependent variable is aircon (is there central air conditioning, no or yes). 
+#The independent variable is price (sales price of a house in dollars). Use the caret package to conduct a logistic regression analysis. 
+#What is the accuracy of the model?
+library(AER)
+library(caret)
+data(HousePrices, package = "AER")
+summary(HousePrices)
+HousePrices$aircon <- as.factor(HousePrices$aircon)
+set.seed(123)
+train.control = trainControl(method = "cv", number = 10)
+logistic_model <- train(
+  aircon ~ price, 
+  data = HousePrices, 
+  method = "glm",
+  family = binomial,
+  trControl = train.control)
+print(logistic_model)
+model_accuracy <- max(logistic_model$results$Accuracy)
+model_accuracy
+#5.7 This question uses the Epatwoseater data set in the BSDA package. The dependent variable is manufacturer (the name of the manufacturer). 
+#Use displ (displacement in liters) and cmb (combined city and highway mpg) as independent variables. 
+#If a car has a 2.5 liter engine, and it gets 25 combined city and highway mpg, predict the name of the manufacturer. 
+#Use the caret package and linear discriminant analysis (LDA). Use set.seed(123). 
+#Hint: the dependent variable is not a factor; it needs to be converted to a factor.
+library(BSDA)
+library(caret)
+library(MASS)
+data("Epatwoseater", package = "BSDA")
+summary(Epatwoseater)
+Epatwoseater$manufacturer <- as.factor(Epatwoseater$manufacturer)
+set.seed(123)
+train.control <- trainControl(method = "cv", number = 10)
+lda_model <- train(manufacturer ~ displ + cmb, 
+  data = Epatwoseater, 
+  method = "lda",
+  trControl = train.control)
+print(lda_model)
+new.data <- data.frame(displ = 2.5, cmb = 25)
+predicted_manufacturer <- predict(lda_model, new.data)
+predicted_manufacturer
+#5.8 Use the Salaries data set in the carData package. The dependent variable (rank) is categorical with three levels (AsstProf, AssocProf, and Prof). 
+#Use all available independent variables. Use set.seed(123). Use the caret package to perform linear discriminant analysis (LDA) with 5-fold cross validation.  
+#What is the cross validated accuracy?
+library(carData)
+library(caret)
+library(MASS)
+data(Salaries, package = "carData")
+summary(Salaries)
+Salaries$rank <- as.factor(Salaries$rank)
+set.seed(123)
+train.control <- trainControl(method = "cv", number = 5)
+lda_model <- train(rank ~ ., 
+  data = Salaries, 
+  method = "lda",
+  trControl = train.control)
+print(lda_model)
+cv_accuracy <- max(lda_model$results$Accuracy)
+cv_accuracy
